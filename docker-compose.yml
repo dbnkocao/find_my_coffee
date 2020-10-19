@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgis:
+    image: 'postgis/postgis:12-master'
+    volumes:
+      - 'postgis:/var/lib/postgresql/data'
+    environment: 
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  api:
+    depends_on:
+      - 'postgis'
+    build: .
+    command: bash start
+    environment: 
+      - RAILS_ENV=development
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/find_my_coffe'
+      - 'gems:/gems'
+
+volumes:
+  postgis:
+  gems:
