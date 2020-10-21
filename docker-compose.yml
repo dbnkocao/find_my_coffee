@@ -11,15 +11,29 @@ services:
   api:
     depends_on:
       - 'postgis'
-    build: .
-    command: bash start
+    build: ./backend
+    command: bash
     environment: 
       - RAILS_ENV=development
     ports:
       - '3000:3000'
     volumes:
-      - '.:/find_my_coffe'
+      - './backend:/find_my_coffee'
       - 'gems:/gems'
+    tty: true
+
+  web:
+    depends_on:
+      - 'api'
+    image: node:14
+    ports:
+      - 3001:3000
+    volumes:
+      - ./frontend-web:/find_my_coffee_web
+    working_dir: /find_my_coffee_web
+    command: bash start
+    stdin_open: true
+    # tty: true
 
 volumes:
   postgis:

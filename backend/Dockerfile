@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -qq -y --no-install-recommends \
 
 RUN apt-get install libxslt-dev libxml2-dev zlib1g-dev -y
 
-ENV INSTALL_PATH /find_my_coffe
+ENV INSTALL_PATH /find_my_coffee
 
 ENV BUNDLE_PATH /gems
 
